@@ -1,0 +1,115 @@
+{% extends "layouts/app.html" %}
+
+{% block js %}
+var points = new Array();
+    var polygon;
+           {%for point in points%}
+            po  = new google.maps.LatLng({{point.latitude}}, {{point.longitude}});
+            points.push(po);
+
+       {%endfor%}
+
+    function updateValues(img, selection) {
+        /*
+        point = new google.maps.Point(selection.x1, selection.y1);        
+        
+        
+        addMarker(dum.getProjection().fromContainerPixelToLatLng(point));
+        
+        
+        point = new google.maps.Point(selection.x1, selection.y2);
+        addMarker(dum.getProjection().fromContainerPixelToLatLng(point));
+        
+        point = new google.maps.Point(selection.x2, selection.y2);        
+        addMarker(dum.getProjection().fromContainerPixelToLatLng(point));
+
+        point = new google.maps.Point(selection.x2, selection.y1);
+        addMarker(dum.getProjection().fromContainerPixelToLatLng(point));
+
+
+        var selector = $("#map_canvas").imgAreaSelect({ instance:true});
+        //selector.remove();
+        */
+        $("input[name='p1x']").val(selection.x1);
+        $("input[name='p1y']").val(selection.y1);
+        $("input[name='p2x']").val(selection.x2);
+        $("input[name='p2y']").val(selection.y2);
+    }
+
+    function getTopPoint() {
+        return new google.maps.Point(parseInt($("input[name='p1x']").val()), parseInt($("input[name='p1y']").val()));        
+    }    
+    function getBottomPoint() {
+        return new google.maps.Point(parseInt($("input[name='p2x']").val()), parseInt($("input[name='p2y']").val()));        
+    }    
+    function showMsg() {
+    $('.welcome').ShowBubblePopup();
+}
+
+{% endblock %}
+{% block jquery_init %}
+        function loadMap() {
+        for (i = 0; i < points.length;i++) {
+        alert("");
+            point = points[i];
+            //med = new google.maps.LatLng(latLng2.lat()+((latLng1.lat()-latLng2.lat())/2), latLng2.lng()+ ((latLng1.lng()-latLng2.lng())/2));
+            //polygon = maps.addPolygon(latLng1, latLng2);
+            //google.maps.event.addListener(polygon, "mouseover",function(e){
+             //   po = maps.fromLatLngToContainerPixel(this.getPath().getAt(0));
+
+            //});
+
+            //polygon.CreateBubblePopup({ innerHtml: 'Aquí tienes las últimas <br>tradiciones añadidas!'});
+            //var infowindow = new google.maps.InfoWindow(); 
+            //infowindow.setContent("<div class='all-black'></div>"); 
+            //infowindow.setPosition(latLng1); 
+            //infowindow.open(map); 
+            //po = maps.fromLatLngToContainerPixel(latLng1);
+            // po2 = maps.fromLatLngToContainerPixel(latLng2);
+            marker = maps.addMarker( new google.maps.LatLng(point.lat() , point.lng()));
+               
+        }
+
+        $("#map_canvas").append("<div class='welcome' style='position: absolute; left: 350px; top: 230px; z-index: 1;'></div>");
+        $('.welcome').CreateBubblePopup({ innerHtml: 'Aquí tienes las últimas <br>tradiciones añadidas!',
+                                                            position:   'left',
+                                                            align:      'center',
+                                                            tail:       {align:'center', hidden: false},
+                                                            innerHtmlStyle: {
+                                                                color:'#FFFFFF', 
+                                                                'text-align':'center',
+                                                                'font-size':'14px',
+                                                                'padding':' 20px'},
+                                                            themeName: 	'all-black',
+                                                            themePath: 	'/static_media/css/jquerybubblepopup-theme',
+                                                            alwaysVisible: false,
+                                                            openingSpeed: 900,
+                                                            distance:'1000px',
+                                                            openingDelay:'1000'
+														 });
+
+         }
+        Maps(loadMap);
+        setTimeout('showMsg()',1500);
+   {% endblock %}
+
+{% block page %}
+    <div id="tools">
+            
+    </div>
+    <div id="map_canvas">
+        ddddd
+    </div> <!-- map -->
+
+{% endblock %}
+
+
+{% block header %}
+		
+
+        <div class="" style="text-align:center; padding-top:30px;">
+                               <input  type="text" placeholder="Buscar" id="search_location" name="search_location" class="text"/>
+                <input type="button" value="Buscar pueblo" class="submit" id="buscar" />
+        
+        </div>
+{% endblock %}

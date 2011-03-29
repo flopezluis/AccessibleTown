@@ -1,0 +1,27 @@
+{% extends "layouts/app.html" %} 
+
+{% block jquery_init %}
+//window load is called when all images has been loaded
+// then apply shadows with all elements on screen
+$(window).load(function() {
+        $(".whiteboard").dropShadow({left: 0, top: 1, blur: 2, opacity: 0.2} )
+});
+{% endblock %}
+{% load i18n %}
+{% block page %}
+        
+<div class="prepend-6 span-9 last">
+
+    <div class="span-9 whiteboard">
+         <div id="entry_view">
+            <div id="entry">         
+                <h2>{% trans "Registro" %}</h2>
+                <p>{% trans "Introduce tu correo electrónico y contraseña, en 30 segundos podrás estar opinando" %} </p>
+                {% include "registration/includes/register_form.html" %}
+                <div id="social_networks" class="prepend-1 span-6 last">
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+{% endblock %}

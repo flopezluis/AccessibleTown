@@ -1,0 +1,148 @@
+/* master.css */
+html { height: 100%; }
+body { height: 100%; margin: 0px; padding: 0px }
+
+/* reset some blueprint css */
+input, fieldset, input.text, input.titl, input.title { 
+    padding: 0; 
+    margin: 0;
+}
+
+fieldset {
+    border: none;
+}
+
+ul {
+    padding: 0;
+}
+
+#header { overflow: hidden; clear: both; }
+
+#header #logo { }
+
+
+#header #user { margin-top: 6.5em; text-align: right; }
+#header #user li { display: inline; margin-left: 1.2em; }
+
+#header .nav { padding: 1.5em 0; background: #EEE; }
+
+#header .nav ul { float: left; margin: 0 0 0 1.6em; }
+
+#header .nav ul li { display: inline; font-size: 1.2em; margin-right: 20px; }
+
+#header .nav ul ul { display: none; }
+
+#header .nav #search { float: right;  margin:-0.4em 1.8em -0.4em 0;}
+
+#header .nav #search .text { width: 16em; margin-right: 0.9em; font-size: 1.2em; }
+
+#page { }
+
+#page .nav { display:block; clear: both; margin: 1.5em 0 1.5em;}
+#page .nav p { margin: 0; }
+
+#page .section { }
+
+#page .header {margin-top:2.4em }
+
+#page .section p.meta {font-size: 1em; color: #666; margin-bottom: 1.5em;}
+
+#page .section p { 
+    font-size: 1.2em; 
+    line-height:1.25em;
+    margin-bottom:1.25em;
+}
+
+#page .section .opinion h4 { 
+    font-size: 1.2em; 
+    line-height:1.25em;
+    margin-bottom: 0em;
+    font-weight: bold;
+}
+
+#page .section .opinate { clear: left; overflow: hidden; margin-top: 1.8em; }
+
+#page .section .opinion {
+    margin-bottom: 1.5em;
+}
+#page .section .opinion p { 
+    font-size: 1.0em; 
+    line-height: 1.5em; 
+    margin-bottom: 1.5em;
+}
+
+#page .section .opinion img { float: left; margin-right: 1.2em; height: 72px; }
+
+#page .aside { float: right;  }
+
+#page .aside .status { padding: 1.72em 1.8em 0 1.8em; margin-bottom: 1.8em; overflow: hidden; background: #70A12E; }
+
+#page .aside .graph { 
+    margin-bottom: 1.8em; 
+    overflow: hidden; 
+    background: #E0C900; 
+}
+
+#page .aside .graph h5 { 
+    margin: 10px 0 1.5em 10px;
+}
+
+#page .aside .graph p {
+    margin-bottom: 0em;
+    margin-left: 10px;
+}
+
+#page .aside .graph .percent {
+    height: 0.8em;
+    margin-bottom: 0.7em;
+    background-color: #cc0000;
+    display: block;
+    margin-left: 10px;
+}
+
+#page .aside #opinion_poll {
+    margin-bottom: 1.5em;
+    border-top: 1px solid #165480;border-bottom: 3px solid #165480;border-left: 1px solid #165480;border-right: 3px solid #165480;
+}
+#page .aside #poll {
+    margin-bottom: 1.5em;
+    border-top: 1px solid #165480;border-bottom: 3px solid #165480;border-left: 1px solid #165480;border-right: 3px solid #165480;
+}
+
+#page .aside .related ul { padding-left: 1.8em; }
+
+#page .aside #poll .poll_choice {
+    font-size: 1em;
+    line-height: 1.5em; 
+    margin-bottom: 1.5em;
+    display: block;
+    border: #cccccc solid 0px;
+    padding: 10px 0 10px 10px;
+
+}
+
+#page .aside #poll a span {
+    background-color: #cccccc;
+}
+
+#page .aside #poll a:hover span {
+    background-color: #aaaaaa;
+}
+
+
+#map_canvas { height: 80% }
+#tools {
+    height: 20%;
+    text-align:center;
+    background:#000000;
+ 
+}
+#tools #buttons {
+ margin: 10px 0 0.5em 10px;
+}
+
+.container {
+    height:100%;
+
+}
+

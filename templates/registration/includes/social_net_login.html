@@ -1,0 +1,8 @@
+{% load i18n facebook_tags %}
+<h3>{% trans "o usa otra cuenta" %}</h3>
+<ul class="prepend-1">
+    <li><a href="{% url twitter_login %}"><img src="http://a0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png" /></a></li>
+    <li>
+    {% show_connect_button %}
+    </li>
+</ul>
