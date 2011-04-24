@@ -29,16 +29,13 @@
                 <a href="{% url auth_password_reset %}">{% trans "¿Olvidaste tus datos?" %}</a>
               </div>
               <div id="button_send" class="form_submit span-3 last">
-                <input type="submit" value="{% trans 'Entrar' %}" />
+                <input type="submit" value="{% trans 'Entrar' %} class="button" />
               </div>
               
               <input type="hidden" name="next" value="{{ next }}" />
           </form>
 
       </div> <!-- entry_form -->
-
-      <div id="social_networks" class="span-6 last">
-      </div>
 
   </div> <!-- entry -->
 {% endblock %}

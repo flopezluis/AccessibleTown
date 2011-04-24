@@ -12,7 +12,6 @@
   <!--[if lt IE 8]><link rel="stylesheet" href="/media/ui/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
   <!--[if IE]><script language="javascript" type="text/javascript" src="../excanvas.min.js"></script><![endif]-->
   <link rel="stylesheet" href="/media/css/master.css" type="text/css" >
-  <script language="javascript" type="text/javascript" src="/media/js/flot/jquery.js"></script>
   <script src="/media/js/jquery-1.4.2.min.js"></script>
   <script src="/media/js/jquery-ui-1.8.6.custom.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>

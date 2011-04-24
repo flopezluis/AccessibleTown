@@ -1,17 +1,19 @@
 {% load i18n %}
 <form method="post" action="{% url registration_register %}">
+    {% csrf_token %}
+        
     {% if form.non_field_errors %}
         <p class="error">{{ form.non_field_errors.0 }}</p>
     {% endif %}
     <dl>
     {% for field in form %}
         <dt>{{ field.label_tag }}</dt>
-        <dd {% if field.errors %} class="field_error"{% endif %}>{{ field }}</dd>
+        <dt {% if field.errors %} class="field_error"{% endif %}>{{ field }}</dt>
         {% if field.help_text %}<dd >{{ field.help_text }}</dd>{% endif %}
         {% if field.errors %}<dd class="error">{{ field.errors.0 }}</dd>{% endif %}
     {% endfor %}
+        <dt>
+            <input type="submit" class="button" value="{% trans 'Entrar' %}" />
+        </dt>
     </dl>
-    <div id="button_send">
-        <input type="submit" value="{% trans 'Entrar' %}" />
-    </div>
 </form>

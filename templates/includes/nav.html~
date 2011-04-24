@@ -1,9 +1,6 @@
 <div class="nav span-24 last">
   <ul>
   <li>
-  <a href="#">Ver zonas  </a>
-  </li>
-  <li>
       <a id="add_point" href="#">Añadir Zona</a>
   </li>
    </ul>

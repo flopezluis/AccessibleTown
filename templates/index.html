@@ -17,14 +17,25 @@ function showMsg() {
 {% endblock %}
 {% block jquery_init %}
 function loadPoints() {
-    for (i = 0; i < points.length;i++) {
-        point = points[i];
-        setTimeout((function(point) { return function() {
-            marker = maps.addMarker( new google.maps.LatLng(point.point.lat() , point.point.lng()), point.id);
-            markers.push(marker);
-        };
-        })(point), i*500);
-    }
+     $.ajax({
+            url: "/point/get_last_points/",
+            method: 'GET',
+            dataType: 'json',
+            data:'',
+            success: function(data) {
+                if (data.success) {
+                    for (i = 0; i < data.points.length;i++) {
+                        point = data.points[i];
+                        setTimeout((function(point) { return function() {
+                            marker = maps.addMarker( new google.maps.LatLng(point.lat , point.lng), point.id);
+                            markers.push(marker);
+                        };
+                        })(point), i*500);
+                    }
+                }
+            }
+         });
+
 }
 function loadMap(data) {
     maps = data;
@@ -38,13 +49,16 @@ $("#add_point").click(function() {
         $("#add_point").text("Añadir zona");
     } else {
          adding = true;
-         markers.forEach(function(value, clave) {
-            value.setMap(null); 
-         });
+         removeMarkers();
          $("#add_point").text("Cancelar");
      }
 });
 
+function removeMarkers() {
+    markers.forEach(function(value, clave) {
+        value.setMap(null); 
+    });
+}
             
 function add_point(e) {
     if (!adding) return;
@@ -62,16 +76,38 @@ function add_point(e) {
                     $.fancybox(data.html,
                         {'onClosed'		: function() {
                           new_marker.setMap(null);
+                          $("#add_point").trigger("click");
                        }});
                     $("#id_latitude").val(e.latLng.lat());
                     $("#id_longitude").val(e.latLng.lng());
                     $('#my_form').ajaxForm(function() { 
-                        alert("Guardo con éxito"); 
+                        $.fancybox.close()
+                        $("#add_point").trigger("click");
                     }); 
                 }
             } 
         });
 }
+$("#route").click(function() {
+     $.ajax({
+            url: "/point/get_route_form/",
+            method: 'GET',
+            dataType: 'json',
+            data:'',
+            success: function(data) {
+                if (data.success) {
+                    $.fancybox(data.html,
+                        {'onClosed'		: function() {
+                       }});
+                   $("#do_route").click(function() {
+                        removeMarkers();
+                        maps.calcRoute($("#id_source").val(), $("#id_target").val(), points);
+                        $.fancybox.close();
+                    });
+                }
+            } 
+        });
+});
 Maps(loadMap, add_point);
 
 {% endblock %}

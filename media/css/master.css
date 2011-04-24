@@ -36,6 +36,8 @@ ul {
 
 #header .nav #search .text { width: 16em; margin-right: 0.9em; font-size: 1.2em; }
 
+#footer {clear: both; text-align:center}
+
 #page { }
 
 #page .nav { display:block; clear: both; margin: 1.5em 0 1.5em;}
@@ -146,3 +148,40 @@ ul {
 
 }
 
+/* ripped from mamuso */
+.button {
+    background: #0097B5 url("../images/gradient_button.png") repeat-x scroll 0 0;
+    display: inline-block;
+    width: auto;
+    overflow: visible;
+    padding: .3em 1em;
+    color: #F2F2F2;
+    text-decoration: none;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-box-shadow: 0 .1em .3em rgba(0, 0, 0, 0.10);
+    -webkit-box-shadow: 0 .1em .3em rgba(0, 0, 0, 0.10);
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.10);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+    position: relative;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: Arial;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.button:hover { 
+  background-color: #007795; 
+  color: #F2F2F2; 
+}
+
+.popup {
+    margin-top:4px;
+    padding:8px;
+    background: #EEE;
+    line-height:1.25em;
+}
+
+dt, dd { display: block; float: left; margin-top: 20px; }
+dt { clear: both; }

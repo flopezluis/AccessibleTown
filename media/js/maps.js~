@@ -7,7 +7,8 @@ function Maps(callback, callback_mouse_pressed) {
     var map;
     var messagesOverlay;
     var mouse_pressed = false;
-
+    var directionsDisplay;
+    var directionsService;
     function MessagesOverlay(map) {
         this.setMap(map);
     }
@@ -23,7 +24,8 @@ function Maps(callback, callback_mouse_pressed) {
                     fromLatLngToContainerPixel:fromLatLngToContainerPixel,
                     addMarker:addMarker,
                     fromContainerPixelToLatLng:fromContainerPixelToLatLng,
-                    showMsg:showMsg
+                    showMsg:showMsg,
+                    calcRoute:calcRoute
                 });
     }
     if (document.getElementById("map_canvas")) {
@@ -35,7 +37,12 @@ function Maps(callback, callback_mouse_pressed) {
             };
             map = new google.maps.Map(document.getElementById("map_canvas"), options);
             messagesOverlay = new MessagesOverlay(map);
-            
+            // Create a renderer for directions and bind it to the map.
+            var rendererOptions = {
+                map: map
+            }
+            directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions); 
+            directionsService = new google.maps.DirectionsService();
         google.maps.event.addListener(map, "click",function(e) {
              $("div:[class*='marker_div']").HideBubblePopup();
              $("div:[class*='welcome']").HideBubblePopup();
@@ -76,7 +83,7 @@ function Maps(callback, callback_mouse_pressed) {
              google.maps.event.addListener(marker, "mouseover",function(e) {
                 point = fromLatLngToContainerPixel(this.getPosition());
                 $.ajax({
-                    url: "/point/get_details/1/",
+                    url: "/point/get_details/" + point_id + "/",
                     method: 'GET',
                     dataType: 'json',
                     data:'',
@@ -131,5 +138,42 @@ function Maps(callback, callback_mouse_pressed) {
         }
 
     }
+    
+    function calcRoute(start, end, points) {
+      // Retrieve the start and end locations and create
+      // a DirectionsRequest using WALKING directions.
+      var request = {
+          origin: start,
+          destination: end,
+          travelMode: google.maps.DirectionsTravelMode.WALKING
+      };
+
+      // Route the directions and pass the response to a
+      // function to create markers for each step.
+      directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+          showSteps(response,points);
+        }
+      });
+    }
+
+function showSteps(directionResult, points) {
+  // For each step, we calc whether in the route there are inaccessible places. 
+  // IMPORTANT: This is an inefficient way to do this, the list of points can be huge, so first we
+  // should get the points near the route (with geodjango) and then check whether it's in the route or not.
+  var myRoute = directionResult.routes[0].legs[0];
+   console.log(directionResult.routes[0]);
+  for (var i = 0; i < myRoute.steps.length; i++) {
+     var bounds = new google.maps.LatLngBounds();
+     bounds.extend(myRoute.steps[i].start_point);
+     bounds.extend(myRoute.steps[i].end_point);
+         for (var p = 0; p < points.length;p++) { 
+            if (bounds.contains(points[p].point)) {
+                addMarker(points[p].point), points[p].id);
+            }
+        }
+  }
+}
 
 }
