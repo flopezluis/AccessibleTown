@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 
 from django.conf import settings
 from django.contrib import admin
-from points.views import index, test
+from points.views import index
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -17,7 +17,6 @@ urlpatterns = patterns('',
      (r'^accounts/', include('registration.urls')),
      url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
      url(r'^$', index, name='index'),
-     url(r'^test$', test, name='test'),
      (r'^point/', include('points.urls')),
 )
 if settings.DEBUG:
