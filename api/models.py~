@@ -1,0 +1,14 @@
+from django.db import models
+
+
+#initial showed posts value
+DEFAULT_MAX_POSTS = 10      # posts showed for each post_type
+
+class ApiConfig(models.Model):
+    
+    max_posts = models.IntegerField(default=DEFAULT_MAX_POSTS)
+    
+    @staticmethod
+    def get_instance():
+        instance, created = ApiConfig.objects.get_or_create(pk=1)
+        return instance

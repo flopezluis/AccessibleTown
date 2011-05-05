@@ -1,0 +1,40 @@
+#! /bin/python
+#
+#
+# -*- encoding: utf-8 -*-
+#
+
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from webadmin.models import can_access_admin
+from tabs.models import Tab
+
+from forms import ApiConfigForm
+from models import ApiConfig
+
+@login_required
+def config(request):
+    if can_access_admin(request.user):
+        if request.method == 'POST':
+            # get form values
+            form = ApiConfigForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('web_admin'))
+        else:
+            # build form
+            config = ApiConfig.get_instance()
+            data = {'max_posts': config.max_posts}
+            form = ApiConfigForm(data)
+            admin_tabs = Tab.get_tabs_from_user(request.user, Tab.ADMIN)
+            return render_to_response('api/api_config.html',
+                                      {'form':form, 'admin_tabs': admin_tabs }, 
+                                      context_instance=RequestContext(request)) 
+    else:
+        return HttpResponseForbidden
+    
+         
+        
