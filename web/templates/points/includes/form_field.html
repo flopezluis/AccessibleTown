@@ -1,0 +1,14 @@
+
+
+<div class="{% if field.errors %}field_error{%endif%}">
+ {{ field.label_tag }} {{ field}}
+ {% if field.errors %}
+    <div class="help_text field_error_text">
+        {{field.errors.0}}
+    </div>
+ {% else %}
+    <div class="help_text">
+        {{field.help_text}}
+    </div>
+ {% endif %}
+</div>

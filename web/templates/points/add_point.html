@@ -1,0 +1,36 @@
+{% extends "layouts/app.html" %}
+
+{% block js %}
+    function loadMap(data) {
+        maps = data;
+        maps.setModeAdding(true);
+        }
+    function add_point() {
+         $.ajax({
+                url: "/point/get_form_add_point/",
+                method: 'GET',
+                dataType: 'json',
+                data:'',
+                success: function(data) {
+                    if (data.success) {
+                        $.fancybox(data.html);
+
+                        $('#my_form').ajaxForm(function() { 
+                            alert("Thank you for your comment!"); 
+                        }); 
+                    }
+                } 
+            });
+    }
+{% endblock %}
+
+{% block jquery_init %}
+        Maps(loadMap, add_point);
+{% endblock %}
+
+{% block page %}
+
+   <div id="map_canvas">
+    </div> <!-- map -->
+ 
+ {% endblock %}

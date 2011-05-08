@@ -1,0 +1,41 @@
+{% load i18n %}
+{%block app %}
+  <div id="entry" class="span-6" >
+
+      <div class="title">{% trans "Entrar o" %} <a  href="{% url registration_register %}">{% trans "registrarse" %}</a></div>
+
+      <div id="entry_form" class="span-6 last">
+          {% if form.errors %}
+                    
+            {% if form.get_user %}
+            <p class="error"> {% trans "Esta cuenta no está activada" %} </p>             
+            {% else %}
+            <p class="error"> {% trans "El usuario no existe o la contraseña introducida no es la correcta" %} </p>
+            {% endif %}
+                   
+          {% endif %}          
+          <form method="post" action="{% url auth_login %}">
+              {{form}}
+              <!--
+              <table>
+                  <tr><td>Usuario </td><td>{{ form.username }}</td></tr>
+                  <tr><td>Contraseña</td><td>{{ form.password }}</td></tr>
+              </table>
+              --><!-- 
+              <div class="form_submit span-3">
+                  <input type="submit" id="button_send" value="Entrar" />
+              </div>-->
+              <div class="form_submit span-3 last">
+                <a href="{% url auth_password_reset %}">{% trans "¿Olvidaste tus datos?" %}</a>
+              </div>
+              <div id="button_send" class="form_submit span-3 last">
+                <input type="submit" value="{% trans 'Entrar' %} class="button" />
+              </div>
+              
+              <input type="hidden" name="next" value="{{ next }}" />
+          </form>
+
+      </div> <!-- entry_form -->
+
+  </div> <!-- entry -->
+{% endblock %}

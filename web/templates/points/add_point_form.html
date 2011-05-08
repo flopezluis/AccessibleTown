@@ -1,0 +1,33 @@
+{% load i18n %}
+{% comment %}
+<!--
+  -->
+  {% endcomment %}
+<div class="popup" > 
+<h3 style="text-align:center">
+    <span >Añadir nueva zona</span>
+</h3>
+<form id='my_form' action='/point/add_point/' method='post' enctype='multipart/form-data'>
+        {% csrf_token %}
+    <div style='width:300px;height:200px'>
+         <dl>
+            <dt>{% with  form.description as field %}
+              {% include "points/includes/form_field.html" %}
+              {% endwith %} 
+            </dt>
+            <dt>{% with  form.photo as field %}
+              {% include "points/includes/form_field.html" %}
+              {% endwith %} 
+            </dt>
+             {{form.latitude}}
+             {{form.longitude}}
+             <br> 
+             <dt style="float:right">
+                 <input type='submit' class="button" value='Guardar'>
+             </dt>
+
+        </dl>
+
+    </div>
+</form>
+</div>

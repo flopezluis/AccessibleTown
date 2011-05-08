@@ -1,0 +1,19 @@
+{% extends "layouts/app.html" %} 
+{% load i18n %}
+{% block jquery_init %}
+
+{% endblock %}
+
+{% block page %}
+
+<div id="registration" class="prepend-6 span-12 append-6">
+
+    <div class="span-12 whiteboard">
+        <div class="data_box">
+            <h2>{% trans "¡Gracias por registrarte!" %}</h2>
+            {% trans "Recibirás un correo para activar tu cuenta en unos instantes." %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
