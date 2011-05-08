@@ -1,1 +1,0 @@
-Haz click aquí para activar la cuenta: http://{{ site }}/accounts/activate/{{ activation_key }}/

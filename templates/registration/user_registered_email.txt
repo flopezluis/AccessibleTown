@@ -1,6 +1,0 @@
-Nuevo usuario registrado: 
-Nombre: {{user.name}} 
-Username: {{user.username}} 
-Mail: {{user.email}}
-
-http://{{ site }}/admin/ 
