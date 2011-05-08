@@ -36,3 +36,16 @@ class PointHandler(BaseHandler):
             photo.save()
 
         return rc.ALL_OK
+
+class LoginHandler(BaseHandler):
+    """
+    it do the challenge
+    """
+
+    allowed_methos = ('GET')
+
+    def read(self, request):
+        """
+        if it gest here, it's authenticated
+        """
+        return rc.ALL_OK
