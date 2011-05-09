@@ -1,4 +1,4 @@
-Titanium.include('/constants.js', '/utils.js');
+Titanium.include('/constants.js', '/utils.js', 'db.js');
 
 function isAuthenticated() {
     var login = Titanium.App.Properties.getString("login");
@@ -106,15 +106,13 @@ function showLogin() {
         function do_login() {
             btn.enabled = false;
             Titanium.App.Properties.setString("login",'Basic ' + Ti.Utils.base64encode(username.value + ':' + pass.value));
-            getJSON(Constants.PREFERENCES_URL, 
+            getJSON(Constants.DO_LOGIN, 
                 function() {
-                    refresh(w);
-                    loadIniciatives(function() { 
                         var db = new DB();
+                        alert("2");
                         db.saveSession();
-                        Titanium.App.fireEvent('reload');
+                        alert("3");
                         w.close();
-                    });
                 }, 
                 function(e) {
                     if (this.status == 401) {

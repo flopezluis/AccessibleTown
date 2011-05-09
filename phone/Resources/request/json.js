@@ -59,11 +59,7 @@ function sendPoint(point, onload, onerror_op) {
         req.onload = onload;
         req.onerror = onerror_op;
         req.setRequestHeader('Authorization', login);
-        var json_post ='{"title":"' + title + '", "body":"' + text.escapeSpecialChars() + '", "user_comment":"' + suggestion.escapeSpecialChars() + '","youtube_video":"' +youtube +'"}';
-        //alert(json_post.escapeSpecialChars());
-        alert(JSON.stringify(point));
-        req.send(JSON.stringify(point));
-                //'{"title":"' + title + '", "body":"' + text + '", "user_comment":"' + suggestion + '","youtube_video":"' +youtube +'"}');//'[{"mobile_phone":"64222"}]');
+        req.send(point);
     } else {
         alert("Tienes que estar registrado para participar.");
     }

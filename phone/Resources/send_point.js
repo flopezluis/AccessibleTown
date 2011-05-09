@@ -11,7 +11,7 @@ var TEXTAREA_FIELD = 3;
 var tableview;
 var win = Ti.UI.createWindow({});
 var imageView;
-
+var image_data;
 /* Fields, check validations.....
 * It gets the field where the value is from the id. 
 */
@@ -128,7 +128,7 @@ function createStandardRow(id, name, type_field, value) {
 * <!-- Creating rows -->
 */
 
-function show_form(latitude, longitude) {
+function showForm(latitude, longitude) {
     Ti.Geolocation.purpose = "GEt your ";
 	Titanium.Geolocation.accuracy = Titanium.Geolocation.ACCURACY_BEST;
     Titanium.Geolocation.distanceFilter = 10;
@@ -166,6 +166,7 @@ function show_form(latitude, longitude) {
         });
         //window.open({fullscreen:true});
         openPhotoGallery(function(image) {
+            image_data = image;
             imageView.image = image;
         });
     });
@@ -210,9 +211,8 @@ function save(latitude, longitude) {
                 description:getField('description').value,
                 latitude:latitude,
                 longitude:longitude,
-                photo:imageView.image
+                photo:image_data
         }
-
     sendPoint(obj, 
         function() {
            var msg =  "Ha ocurrido un error en el servidor. Inténtalo más tarde.";
