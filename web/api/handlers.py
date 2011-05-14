@@ -21,12 +21,19 @@ class PointHandler(BaseHandler):
         It registers an iphone to receive notifications
     """
 
-    allowed_methos = ('POST')
-    fields = ('id','user', 'description', 'latitude', 'longitude')
+    allowed_methos = ('GET', 'POST')
+    fields = ('id','user', 'description', 'latitude', 'longitude', 'photo')
     model = Point 
 
+    @classmethod
+    def photo(self, point):
+        photos = point.photos.all()
+        if len(photos):
+            return photos[0].photo
+        return None
+
+
     def create(self, request):
-        import pdb;pdb.set_trace()
         point, created = Point.objects.get_or_create(user=request.user, description=request.POST['description'], \
                                     latitude=request.POST['latitude'], longitude=request.POST['longitude'])
         if created:
@@ -36,6 +43,15 @@ class PointHandler(BaseHandler):
             photo.save()
 
         return rc.ALL_OK
+    
+    def read(self, request):
+        """
+            return all published initiatives order by publish date in json format
+            If other type is supplied http BAD_REQUEST code is returned
+
+        """
+        return Point.objects.all().reverse()[0:15]
+
 
 class LoginHandler(BaseHandler):
     """

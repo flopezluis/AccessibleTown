@@ -41,8 +41,7 @@ function DB() {
         * Save the session
         */
         function saveSession() {
-            var db = Titanium.Database.open(ACCESIBLE_TOWN_DB);
-        
+            var db = Titanium.Database.open(ACCESSIBLE_TOWN_DB);
             var ciphertext = Aes.Ctr.encrypt(Titanium.App.Properties.getString("login"), password, 256);
             db.execute('INSERT INTO ' + USER_TABLE + ' (SESSION ) VALUES(?)', ciphertext);
             db.close();             
@@ -51,7 +50,7 @@ function DB() {
         * delete the session
         */
         function resetSession() {
-            var db = Titanium.Database.open(ACCESIBLE_TOWN_DB);
+            var db = Titanium.Database.open(ACCESSIBLE_TOWN_DB);
             db.execute(CREATE_USER_TABLE);            
             db.execute('DELETE FROM ' + USER_TABLE);
             db.close();             
@@ -61,7 +60,7 @@ function DB() {
         * It there is a session stored then load it.
         */
         function loadSession() {
-            var db = Titanium.Database.open(ACCESIBLE_TOWN_DB);
+            var db = Titanium.Database.open(ACCESSIBLE_TOWN_DB);
             db.execute(CREATE_USER_TABLE);
             var sql = 'SELECT * FROM  ' + USER_TABLE;
             var rows = db.execute(sql);

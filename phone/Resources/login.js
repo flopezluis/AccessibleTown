@@ -109,9 +109,8 @@ function showLogin() {
             getJSON(Constants.DO_LOGIN, 
                 function() {
                         var db = new DB();
-                        alert("2");
                         db.saveSession();
-                        alert("3");
+
                         w.close();
                 }, 
                 function(e) {
@@ -152,9 +151,9 @@ function showLogin() {
         row.add(btn);
         data.push(row);
        
-    var tableview = Titanium.UI.createTableView({data:data,top:win.height/2,
+    var tableview = Titanium.UI.createTableView({data:data,
                         style: Titanium.UI.iPhone.TableViewStyle.GROUPED});      
     w.add(tableview);                    
     //w.add(btn);
-    w.open({modal:true, modalTransitionStyle:Ti.UI.iPhone.MODAL_TRANSITION_STYLE_PARTIAL_CURL,modalStyle:Ti.UI.iPhone.MODAL_PRESENTATION_CURRENT_CONTEXT,navBarHidden:true});
+    w.open({modal:true});
 }

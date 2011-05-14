@@ -1,4 +1,4 @@
-Titanium.include('request/json.js', 'send_point.js');
+Titanium.include('request/json.js', 'send_point.js', 'login.js');
 Ti.Geolocation.purpose = "GEt your ";
 	Titanium.Geolocation.accuracy = Titanium.Geolocation.ACCURACY_BEST;
 var map;    
@@ -18,6 +18,8 @@ map = Titanium.Map.createView({
     regionFit         : true,
     userLocation      : true
 });
+
+
 var infolight = Ti.UI.createButton({
     title:'Add point'
 });
@@ -29,10 +31,16 @@ infolight.addEventListener('click', function() {
         }
         var longitude = e.coords.longitude;
         var latitude = e.coords.latitude;
-        show_form(latitude, longitude);
+        var login = Titanium.App.Properties.getString("login");
+        if (login) {
+            showForm(latitude, longitude);
+        } else {
+            showLogin();
+        }
     });
 });
 Titanium.UI.currentWindow.rightNavButton = infolight;
 
 Ti.UI.currentWindow.add(map);
 
+showLogin();
