@@ -176,16 +176,26 @@ function showForm(latitude, longitude) {
     row.add(choose_photo);
     data.push(row);
     
-    var tb2 = Titanium.UI.createButton({
-        title:'Enviar',
+    var btn_send = Titanium.UI.createButton({
+        title:'Enviu sar',
         width:100,
         height:30
     });
-    tb2.addEventListener('click',function(e) {
+    btn_send.addEventListener('click',function(e) {
             save(latitude, longitude);
     });
+    var btn_close = Titanium.UI.createButton({
+        title:'Cerrar',
+        width:100,
+        height:30
+    });
+    btn_close.addEventListener('click',function(e) {
+        win.close();
+    });
+    
     row = Ti.UI.createTableViewRow();
-    row.add(tb2);
+    row.add(btn_close);
+    row.add(btn_send);
     data.push(row);
     tableview.setData(data);
     win.add(tableview);
@@ -217,9 +227,10 @@ function save(latitude, longitude) {
         function() {
            var msg =  "Ha ocurrido un error en el servidor. Inténtalo más tarde.";
             if (this.status == 200) {
-                msg = "Has participado con éxito.";
+                msg = "Enviado con éxito.";
             }
             showMsg(msg);
+            win.close();
         },
         function(e) {
             var msg = "Ha ocurrido un error en el servidor. Inténtalo más tarde.";

@@ -22,14 +22,14 @@ class PointHandler(BaseHandler):
     """
 
     allowed_methos = ('GET', 'POST')
-    fields = ('id','user', 'description', 'latitude', 'longitude', 'photo')
+    fields = ('id', 'description', 'latitude', 'longitude', 'photo')
     model = Point 
 
     @classmethod
     def photo(self, point):
         photos = point.photos.all()
         if len(photos):
-            return photos[0].photo
+            return photos[0].photo.url
         return None
 
 

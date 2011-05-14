@@ -64,3 +64,50 @@ function sendPoint(point, onload, onerror_op) {
         alert("Tienes que estar registrado para participar.");
     }
 }
+/*
+* Get the last ten points and call the function callback
+*/
+function loadLastPoints(callback, onerror_op) {        
+    getJSON(Constants.POINT_URL,function() { 
+        var parsedData = JSON.parse(this.responseText);                    
+        callback(parsedData);
+    }, onerror_op);
+}
+/*
+* Get an image and cached in a directory.
+* use the time
+*/
+function getImage(url, view) {
+    var now = new Date().getTime();
+    var UPDATE_CACHE = true;                
+    names = url.split('/');
+    name =  names[names.length-4] + names[names.length-3] + names[names.length-2] + names[names.length-1];
+
+    //name_txt = name.split(".")[0];
+    var newDir = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, 'images');
+    newDir.createDirectory();
+
+    var f = Titanium.Filesystem.getFile (newDir.nativePath, name);
+
+    if (f.exists()) {//if (f_timestamp.exists()) {
+        var time = new Date(f.createTimestamp()).getTime();
+        UPDATE_CACHE = (now - time > DAY);
+    }
+    if (UPDATE_CACHE) {
+        var adxhr = Titanium.Network.createHTTPClient();
+        adxhr.onload = function()
+        {
+            f.write(this.responseData);
+            view.image = f.nativePath;
+        };
+        adxhr.onerror = function () {
+        setTimeout(function() {
+            getImage(url,view);    
+            }, 15000);
+        };
+        adxhr.open('GET',url);
+        adxhr.send();
+    } else {
+        view.image = f.nativePath;
+    }
+}

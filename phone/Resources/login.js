@@ -5,7 +5,7 @@ function isAuthenticated() {
     return login;
 }
 
-function showLogin() {     
+function showLogin(callback) {     
     var win = Titanium.UI.currentWindow;
     var w = Ti.UI.createWindow({});
     var data = [];
@@ -110,37 +110,12 @@ function showLogin() {
                 function() {
                         var db = new DB();
                         db.saveSession();
-
                         w.close();
+                        callback();
                 }, 
                 function(e) {
                     if (this.status == 401) {
-                        var isAndroid = Ti.Platform.osname == 'android';
-                        if (isAndroid) {
-                            var root = Ti.UI.createView({});
-                            var view = Ti.UI.createView({
-                                width : 300, height: '100'
-                            });
-                            root.add(view);
-                            var labelError = Ti.UI.createLabel({
-                                text : '',
-                                top: 10, left: 10, bottom: 10, right: 10,
-                                borderRadius : 10,
-                                text:"Usuario o password incorrectos."    
-                            }); 
-                            view.add(labelError);   
-                            var dialog = Titanium.UI.createOptionDialog({
-                                options:null,
-                                buttonNames: ['Ok'],
-                                destructive:2,
-                                cancel:1,
-                                title:'Información',
-                                androidView:root
-                            });
-                            dialog.show();
-                        } else {
-                            alert("Usuario o password incorrectos.");
-                        }
+                        alert("Usuario o password incorrectos.");
                     }
                     btn.enabled = true;
                 }
