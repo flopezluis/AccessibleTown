@@ -80,7 +80,7 @@ def get_last_points(request):
     data = {'success': False}
     if request.is_ajax():
         json_points = []
-        points = Point.objects.all().reverse().values('id', 'latitude', 'longitude')[0:10]
+        points = Point.objects.all().order_by('id').reverse().values('id', 'latitude', 'longitude')[0:10]
         for point in points:
             json_points.append({'lat': point['latitude'].to_eng_string(), 'lng': point['longitude'].to_eng_string(),'id':point['id']})
         data = { 'success': True, 'points': json_points }

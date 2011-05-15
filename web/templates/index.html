@@ -6,6 +6,7 @@ var new_marker;
 var points = new Array();
 var adding = false;
 var markers = new Array();
+var timeouts = new Array();
 {%for point in points%}
     po  = new google.maps.LatLng({{point.latitude}}, {{point.longitude}});
     points.push({'point':po, 'id': {{point.id}}});
@@ -26,11 +27,12 @@ function loadPoints() {
                 if (data.success) {
                     for (i = 0; i < data.points.length;i++) {
                         point = data.points[i];
-                        setTimeout((function(point) { return function() {
+                        var timeout = setTimeout((function(point) { return function() {
                             marker = maps.addMarker( new google.maps.LatLng(point.lat , point.lng), point.id);
                             markers.push(marker);
                         };
-                        })(point), i*500);
+                        })(point), i*300);
+                        timeouts.push(timeout);
                     }
                 }
             }
@@ -50,6 +52,9 @@ $("#add_point").click(function() {
     } else {
          adding = true;
          removeMarkers();
+         for (index in timeouts) {
+            clearTimeout(timeouts[index]);
+         }
          $("#add_point").text("Cancelar");
      }
 });
