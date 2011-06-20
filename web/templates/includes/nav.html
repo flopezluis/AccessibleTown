@@ -1,10 +1,12 @@
 <div class="nav span-24 last">
-  <ul>
-  <li>
-      <a id="add_point" href="#">Añadir Zona</a>
-  </li>
-  <li>
-      <a id="route" href="#">Hacer una ruta</a>
-  </li>
+    <ul>
+        {% if not request.user.is_anonymous %}
+      <li>
+          <a id="add_point" href="#">Añadir Zona</a>
+      </li>
+      {%endif%}
+      <li>
+          <a id="route" href="#">Hacer una ruta</a>
+      </li>
    </ul>
 </div>

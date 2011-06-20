@@ -1,6 +1,11 @@
 <div id="user" class="prepend-3 span-13 last">
   <ul>
+      {% if request.user.is_anonymous %}
+      <li><a href="/accounts/login/"> Login</a></li>
+      <li><a href="/accounts/register"> Registrase</a></li>
+      {%else%}
       <li>Bienvenido, <a href="">{{user.username}}</a></li>
-    <li><a href="{% url logout %}">Salir</a></li>
+      <li><a href="{% url logout %}">Salir</a></li>
+      {%endif%}
   </ul>
 </div>

@@ -1,12 +1,16 @@
 {% extends "layouts/app.html" %}
 
 {% block js %}
+var NORMAL = 0;
+var ADD_POINT = 1;
+var SHOW_ROUTE = 2;
+var state = NORMAL;
 var maps;
 var new_marker;
 var points = new Array();
-var adding = false;
 var markers = new Array();
 var timeouts = new Array();
+
 {%for point in points%}
     po  = new google.maps.LatLng({{point.latitude}}, {{point.longitude}});
     points.push({'point':po, 'id': {{point.id}}});
@@ -17,6 +21,33 @@ function showMsg() {
 
 {% endblock %}
 {% block jquery_init %}
+function setState(new_state) {
+    switch (new_state) {
+        case NORMAL:
+            if (state == SHOW_ROUTE) {
+                maps.cleanDirections();
+                removeMarkers();
+            }
+            loadPoints();
+            $("#add_point").text("Añadir zona");
+            $("#route").text("Hacer ruta");
+        break;
+        case ADD_POINT:
+            $("#add_point").text("Cancelar");
+            $.fancybox('<div class="popup" style="height:140px"><h2> Para añadir un punto deja el ratón pulsado<br> hasta que aparezca</h2></div>');
+            removeMarkers();
+            for (index in timeouts) {
+               clearTimeout(timeouts[index]);
+            }
+            break;
+        case SHOW_ROUTE:
+            $("#add_point").text("Cancelar");
+            $("#route").text("Hacer ruta");
+        break;
+    }
+    state = new_state;
+}
+
 function loadPoints() {
      $.ajax({
             url: "/point/get_last_points/",
@@ -42,21 +73,16 @@ function loadPoints() {
 function loadMap(data) {
     maps = data;
     loadPoints();
-   setTimeout('showMsg()',1500);
+    setTimeout('showMsg()',1500);
 }
 $("#add_point").click(function() {
-    if (adding) {
-        adding = false;
-        loadPoints();
-        $("#add_point").text("Añadir zona");
-    } else {
-         adding = true;
-         removeMarkers();
-         for (index in timeouts) {
-            clearTimeout(timeouts[index]);
-         }
-         $("#add_point").text("Cancelar");
-     }
+    switch (state) {
+    case NORMAL: 
+        setState(ADD_POINT);
+        break;
+    default:
+        setState(NORMAL);
+    }
 });
 
 function removeMarkers() {
@@ -66,7 +92,7 @@ function removeMarkers() {
 }
             
 function add_point(e) {
-    if (!adding) return;
+    if (state != ADD_POINT) return;
     if (new_marker) {
          new_marker.setMap(null);
     }
@@ -107,6 +133,7 @@ $("#route").click(function() {
                    $("#do_route").click(function() {
                         removeMarkers();
                         maps.calcRoute($("#id_source").val(), $("#id_target").val(), points);
+                        setState(SHOW_ROUTE);
                         $.fancybox.close();
                     });
                 }

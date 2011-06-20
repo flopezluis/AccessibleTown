@@ -1,6 +1,6 @@
 /* master.css */
 html { height: 100%; }
-body { height: 100%; margin: 0px; padding: 0px }
+body { height: 100%; margin: 0px; padding: 0px;color:#42a7dd; }
 
 /* reset some blueprint css */
 input, fieldset, input.text, input.titl, input.title { 
@@ -15,7 +15,7 @@ fieldset {
 ul {
     padding: 0;
 }
-
+h2 {color:#42a7dd;}
 #header { overflow: hidden; clear: both; }
 
 #header #logo { }
@@ -24,9 +24,9 @@ ul {
 #header #user { margin-top: 6.5em; text-align: right; }
 #header #user li { display: inline; margin-left: 1.2em; }
 
-#header .nav { padding: 1.5em 0; background: #EEE; }
+#header .nav { padding: 1.5em 0; background: #000 url("/media/image/borde_iz2.png") no-repeat bottom left; }
 
-#header .nav ul { float: left; margin: 0 0 0 1.6em; }
+#header .nav ul { float: center; margin: 0 0 0 14.6em; }
 
 #header .nav ul li { display: inline; font-size: 1.2em; margin-right: 20px; }
 
@@ -131,8 +131,10 @@ ul {
     background-color: #aaaaaa;
 }
 
+a {font-size: 1.0em; color:#469DBE; }
+a:visited {font-size: 1.01em; color:#469DBE; }
 
-#map_canvas { height: 100% }
+#map_canvas { height: 80% }
 #tools {
     height: 20%;
     text-align:center;
@@ -179,9 +181,16 @@ ul {
 .popup {
     margin-top:4px;
     padding:8px;
-    background: #EEE;
+    background: #eee;
     line-height:1.25em;
+    background: #000 url("/media/image/borde_iz2.png") no-repeat bottom left;
+    line-height: 2.5em;     
 }
+
 
 dt, dd { display: block; float: left; margin-top: 20px; }
 dt { clear: both; }
+
+.right {
+    float:right;
+}

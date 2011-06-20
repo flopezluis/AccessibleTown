@@ -98,7 +98,8 @@ INSTALLED_APPS = (
     'points',
     'south',
     'api',
-    'piston'
+    'piston',
+    'django_extensions'
 
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',

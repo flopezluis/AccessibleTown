@@ -25,7 +25,8 @@ function Maps(callback, callback_mouse_pressed) {
                     addMarker:addMarker,
                     fromContainerPixelToLatLng:fromContainerPixelToLatLng,
                     showMsg:showMsg,
-                    calcRoute:calcRoute
+                    calcRoute:calcRoute,
+                    cleanDirections:cleanDirections
                 });
     }
     if (document.getElementById("map_canvas")) {
@@ -157,7 +158,11 @@ function Maps(callback, callback_mouse_pressed) {
         }
       });
     }
-
+    function cleanDirections() {
+        directionsDisplay.setOptions( { suppressMarkers: true } );
+        directionsDisplay.setMap(null);
+        map.setZoom(7);
+    }
 function showSteps(directionResult, points) {
   // For each step, we calc whether in the route there are inaccessible places. 
   // IMPORTANT: This is an inefficient way to do this, the list of points can be huge, so first we
