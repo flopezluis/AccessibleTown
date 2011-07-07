@@ -28,7 +28,7 @@ function setState(new_state) {
                 maps.cleanDirections();
                 removeMarkers();
             }
-            loadPoints();
+            loadLastPoints();
             $("#add_point").text("Añadir zona");
             $("#route").text("Hacer ruta");
         break;
@@ -48,7 +48,7 @@ function setState(new_state) {
     state = new_state;
 }
 
-function loadPoints() {
+function loadLastPoints() {
      $.ajax({
             url: "/point/get_last_points/",
             method: 'GET',
@@ -56,8 +56,11 @@ function loadPoints() {
             data:'',
             success: function(data) {
                 if (data.success) {
-                    for (i = 0; i < data.points.length;i++) {
-                        point = data.points[i];
+                     points = [];
+                     for (i = 0; i < data.points.length;i++) {
+                          point = data.points[i];
+                          po = new google.maps.LatLng(point.lat , point.lng)
+                          points.push({'point':po, 'id': point.id});
                         var timeout = setTimeout((function(point) { return function() {
                             marker = maps.addMarker( new google.maps.LatLng(point.lat , point.lng), point.id);
                             markers.push(marker);
@@ -72,7 +75,7 @@ function loadPoints() {
 }
 function loadMap(data) {
     maps = data;
-    loadPoints();
+    loadLastPoints();
     setTimeout('showMsg()',1500);
 }
 $("#add_point").click(function() {
@@ -112,8 +115,9 @@ function add_point(e) {
                     $("#id_latitude").val(e.latLng.lat());
                     $("#id_longitude").val(e.latLng.lng());
                     $('#my_form').ajaxForm(function() { 
-                        $.fancybox.close()
-                        $("#add_point").trigger("click");
+<!--                        window.location.reload();-->
+                        $.fancybox.close();
+<!--                        $("#add_point").trigger("click");-->
                     }); 
                 }
             } 

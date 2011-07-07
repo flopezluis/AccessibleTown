@@ -52,7 +52,7 @@ function sendPoint(point, onload, onerror_op) {
             Ti.API.debug('GET returned error:' + e.error);
         };
         var req = Ti.Network.createHTTPClient(); 
-        req.open('POST', Constants.SEND_POINT_URL);
+        req.open('POST', Constants.POINT_URL);
         req.setRequestHeader('Content-Type', 'application/json');
 
         req.onreadystate = function(){};

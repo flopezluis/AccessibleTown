@@ -177,7 +177,7 @@ function showForm(latitude, longitude) {
     data.push(row);
     
     var btn_send = Titanium.UI.createButton({
-        title:'Enviu sar',
+        title:'Enviar',
         width:100,
         height:30
     });

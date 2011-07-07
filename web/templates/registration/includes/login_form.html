@@ -15,6 +15,7 @@
                    
           {% endif %}          
           <form method="post" action="{% url auth_login %}">
+        {% csrf_token %}
                              <dl>
     {% for field in form %}
         <dt>{{ field.label_tag }}</dt>
@@ -36,7 +37,7 @@
               <div class="form_submit span-3">
                   <input type="submit" id="button_send" value="Entrar" />
               </div>-->
-              <input type="hidden" name="next" value="{{ next }}" />
+              <input type="hidden" name="next" value="{{ next}}" />
           </form>
 
       </div> <!-- entry_form -->

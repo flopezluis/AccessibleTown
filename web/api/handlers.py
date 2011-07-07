@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
 #
-# author: javi santana
+# author: Félix López 
 
 from django.utils.translation import ugettext as _
 from piston.handler import AnonymousBaseHandler, BaseHandler
